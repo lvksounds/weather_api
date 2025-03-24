@@ -1,0 +1,15 @@
+{
+  "python.pythonPath": "venv/Scripts/python", // Caminho do Python no venv
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black", // Formatação automática
+  "python.testing.pytestEnabled": true,  // Usar pytest
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.formatOnSave": true
+  },
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true
+  }
+}

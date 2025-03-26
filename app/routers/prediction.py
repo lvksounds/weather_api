@@ -4,10 +4,11 @@ from app.infra import db_connection
 from app.models.predictions import Prediction
 from app.schemas import schemas
 from app.services.weather_service import get_weather
-from app.services import convert_date_service
+from app.helpers import dates_helper
 from typing import List, Optional
 from datetime import date, datetime
 from starlette.responses import JSONResponse
+from app.helpers.strings_helper import remove_accents 
 
 router = APIRouter(prefix="/predictions", tags=["Predictions"])
 
@@ -16,6 +17,7 @@ async def create_prediction(city: str, db: Session = Depends(db_connection.get_d
   """
   Busca a previsão do tempo para uma cidade e armazena no banco de dados.
   """
+  city = remove_accents(city).lower()
   try:
     data = await get_weather(city)
     if data.get("Erro"):
@@ -51,9 +53,10 @@ async def getPrediction(city: Optional[str] = None, date: Optional[str] =
   city: string
   date: string no formato "DD/MM/YYYY"
   """
-  formatedDate = convert_date_service.converStringToDate(date)
   
   if city and date:
+    formatedDate = dates_helper.converStringToDate(date)
+    city = remove_accents(city).lower()
     prediction = db.query(Prediction).filter(Prediction.city == city, Prediction.date == formatedDate).first()
     if prediction is None:
       raise HTTPException(status_code=404, detail="Previsão não encontrada.")

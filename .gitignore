@@ -1,5 +1,0 @@
-.gitignore
-.vscode
-__pycache__
-.env
-weather_api_workspace.code-workspace

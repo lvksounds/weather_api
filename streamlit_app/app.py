@@ -6,11 +6,10 @@ BASE_URL = "http://127.0.0.1:8000"
 
 # Função para exibir os detalhes de cada previsão
 def display_prediction(prediction):
-    st.write("### Previsão")
+    st.write(f"### {prediction['city'].capitalize()}")
     st.write(f"**ID**: {prediction['id']}")
-    st.write(f"**Cidade**: {prediction['city']}")
-    st.write(f"**Data**: {prediction['date']}")
-    st.write(f"**Descrição**: {prediction['description']}")
+    st.write(f"**Data da consulta**: {prediction['date'].split('T')[0]}")
+    st.write(f"**Detalhes**: {prediction['description']}")
     st.write(f"**Temperatura**: {prediction['temperature']}°C")
     st.write(f"**Umidade**: {prediction['humidity']}%")
     st.write("---")
@@ -48,8 +47,8 @@ def get_all_predictions():
 # Função para filtrar previsões por cidade e data
 def filter_predictions():
     st.title("📌 Filtrar Previsões")
-    city = st.text_input("Digite o nome da cidade (opcional):")
-    date = st.text_input("Digite a data (DD/MM/YYYY, opcional):")
+    city = st.text_input("Digite o nome da cidade:")
+    date = st.text_input("Digite a data (DD/MM/YYYY):")
     if st.button("Filtrar Previsões"):
         params = {}
         if city:

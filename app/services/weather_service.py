@@ -7,8 +7,8 @@ async def get_weather(city: str):
     try:
       response = await client.get(url)
       #response.raise_for_status() pegando erros em homolog
-      if response.status_code != 200:
-          return {"Erro" : "Não foi possivel consultar a cidade."}
+      if response.status_code == 404:
+          return {"Erro" : "Cidade não encontrada"}
       data = response.json()
       return {
         "city": city.lower(),

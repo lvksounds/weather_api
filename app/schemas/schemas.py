@@ -8,7 +8,7 @@ class PredictionBase(BaseModel):
 class CreatePrediction(PredictionBase):
   pass
 
-class PredicitionResponse(PredictionBase):
+class PredictionResponse(PredictionBase):
   id: int
   temperature: float
   humidity: float

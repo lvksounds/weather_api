@@ -11,7 +11,7 @@ async def get_weather(city: str):
           return {"Erro" : "Não foi possivel consultar a cidade."}
       data = response.json()
       return {
-        "city": city,
+        "city": city.lower(),
         "temperature": data["main"]["temp"],
         "humidity":data["main"]["humidity"],
         "description": data["weather"][0]["description"],
